@@ -8,10 +8,12 @@ class DomainCardShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShimmerView(
       child: ListView.builder(
-        itemCount: 7,
+        itemCount: 8,
         shrinkWrap: true,
+        padding: const EdgeInsets.all(16.0),
         itemBuilder: (context, index) => Card(
           child: Container(
+            margin: const EdgeInsets.only(bottom: 12.0, top: 12.0),
             color: Colors.white,
             height: 60,
           ),

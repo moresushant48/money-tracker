@@ -17,45 +17,83 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: RefreshIndicator(
+      backgroundColor: Theme.of(context).primaryColor,
+      body: LayoutBuilder(
+        builder: (context, constraints) => RefreshIndicator(
           onRefresh: () => BlocProvider.of<DomainCubit>(context).fetchDomains(),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                height: 140,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                ),
+          child: SingleChildScrollView(
+            primary: true,
+            physics:
+                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    height: 140,
+                    decoration: BoxDecoration(),
+                  ),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(42.0),
+                          topRight: Radius.circular(42.0),
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          //
+                          SizedBox(
+                            height: 32,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Your Domains",
+                              style: TextStyle(fontSize: 18.0),
+                            ),
+                          ),
+                          //
+                          BlocConsumer<DomainCubit, DomainState>(
+                            listener: (context, state) {},
+                            builder: (context, state) {
+                              if (state is DomainFetching) {
+                                // view shimmer when domains are being fetched
+                                return DomainCardShimmer();
+                                //
+                              } else if (state is DomainFetched) {
+                                // List out domains when fetched.
+                                return ListView.builder(
+                                  physics: BouncingScrollPhysics(),
+                                  primary: false,
+                                  shrinkWrap: true,
+                                  itemCount: state.data.length,
+                                  padding: const EdgeInsets.all(16.0),
+                                  itemBuilder: (context, index) {
+                                    return DomainCard(
+                                      domain: state.data[index],
+                                    );
+                                  },
+                                );
+                                //
+                              } else {
+                                return Container();
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              BlocConsumer<DomainCubit, DomainState>(
-                listener: (context, state) {},
-                builder: (context, state) {
-                  if (state is DomainFetching) {
-                    // view shimmer when domains are being fetched
-                    return DomainCardShimmer();
-                    //
-                  } else if (state is DomainFetched) {
-                    // List out domains when fetched.
-                    return ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: state.data.length,
-                      padding: const EdgeInsets.all(16.0),
-                      itemBuilder: (context, index) {
-                        return DomainCard(
-                          domain: state.data[index],
-                        );
-                      },
-                    );
-                    //
-                  } else {
-                    return Container();
-                  }
-                },
-              ),
-            ],
+            ),
           ),
         ),
       ),

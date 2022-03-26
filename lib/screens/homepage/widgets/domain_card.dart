@@ -8,8 +8,19 @@ class DomainCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 8.0,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            spreadRadius: 0.0,
+            blurStyle: BlurStyle.outer,
+            blurRadius: 12.0,
+            color: Colors.black26,
+          )
+        ],
+        borderRadius: BorderRadius.circular(8.0),
+      ),
       margin: const EdgeInsets.only(bottom: 12.0, top: 12.0),
       child: ListTile(
         title: Text(
