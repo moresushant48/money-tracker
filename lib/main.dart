@@ -1,13 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:money_tracker/firebase_options.dart';
-import 'package:money_tracker/routes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_tracker/utilities/routes.dart';
+import 'package:money_tracker/screens/homepage/cubit/domain_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+      // options: DefaultFirebaseOptions.currentPlatform,
+      );
   runApp(Main());
 }
 
@@ -21,11 +22,15 @@ class Main extends StatefulWidget {
 class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      themeMode: ThemeMode.light,
-      theme: ThemeData(primarySwatch: Colors.purple),
-      initialRoute: "/",
-      onGenerateRoute: (settings) => routes(settings),
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => DomainCubit()),
+        ],
+        child: MaterialApp(
+          themeMode: ThemeMode.light,
+          theme: ThemeData(primarySwatch: Colors.purple),
+          initialRoute: "/",
+          onGenerateRoute: (settings) => routes(settings),
+        ));
   }
 }

@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:money_tracker/models/domain.dart';
+import '../../../utilities/utility_service.dart';
 
 class DomainCard extends StatelessWidget {
-  final int index;
-  DomainCard({Key? key, this.index = 0}) : super(key: key);
+  final DomainModel domain;
+  DomainCard({Key? key, required this.domain}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Card(
+      elevation: 8.0,
+      margin: const EdgeInsets.only(bottom: 12.0, top: 12.0),
+      child: ListTile(
+        title: Text(
+          domain.name.toCapitalized(),
+          style: TextStyle(fontSize: 18),
+        ),
+      ),
+    );
   }
 }
