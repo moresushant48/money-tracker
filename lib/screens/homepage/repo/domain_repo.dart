@@ -10,11 +10,15 @@ class DomainRepo {
 
   Future<List<DomainModel>> fetchDomains() async {
     DataSnapshot snap = await db.ref("users/sushant/").get();
-    Map<dynamic, dynamic> data = snap.value as Map;
     List<DomainModel> domains = [];
-    data.forEach((key, value) {
-      domains.add(DomainModel(key));
-    });
+
+    if (snap.value != null && snap.value != "") {
+      Map<dynamic, dynamic> data = snap.value as Map;
+      data.forEach((key, value) {
+        domains.add(DomainModel(key));
+      });
+    }
+
     return domains;
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:money_tracker/screens/homepage/cubit/domain_cubit.dart';
 import 'package:money_tracker/screens/homepage/widgets/domain_card.dart';
 import 'package:money_tracker/screens/homepage/widgets/domain_card_shimmer.dart';
@@ -38,6 +39,7 @@ class _HomePageState extends State<HomePage> {
                       minHeight: constraints.maxHeight,
                     ),
                     child: Container(
+                      width: double.infinity,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
@@ -55,7 +57,7 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               "Your Domains",
-                              style: TextStyle(fontSize: 18.0),
+                              style: TextStyle(fontSize: 24.0),
                             ),
                           ),
                           //
@@ -73,18 +75,32 @@ class _HomePageState extends State<HomePage> {
                                 //
                               } else if (state is DomainFetched) {
                                 // List out domains when fetched.
-                                return ListView.builder(
-                                  physics: BouncingScrollPhysics(),
-                                  primary: false,
-                                  shrinkWrap: true,
-                                  itemCount: state.data.length,
-                                  padding: const EdgeInsets.all(16.0),
-                                  itemBuilder: (context, index) {
-                                    return DomainCard(
-                                      domain: state.data[index],
-                                    );
-                                  },
-                                );
+                                return state.data.length > 0
+                                    ? ListView.builder(
+                                        physics: BouncingScrollPhysics(),
+                                        primary: false,
+                                        shrinkWrap: true,
+                                        itemCount: state.data.length,
+                                        padding: const EdgeInsets.all(16.0),
+                                        itemBuilder: (context, index) {
+                                          return DomainCard(
+                                            domain: state.data[index],
+                                          );
+                                        },
+                                      )
+                                    : Column(
+                                        children: [
+                                          Lottie.network(
+                                            "https://assets8.lottiefiles.com/packages/lf20_awc77jfz.json",
+                                          ),
+                                          Text(
+                                            "No domains found.",
+                                            style: TextStyle(
+                                              fontSize: 18.0,
+                                            ),
+                                          )
+                                        ],
+                                      );
                                 //
                               } else {
                                 return Container();

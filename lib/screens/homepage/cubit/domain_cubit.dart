@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:meta/meta.dart';
 import 'package:money_tracker/models/domain.dart';
 import 'package:money_tracker/screens/homepage/repo/domain_repo.dart';
