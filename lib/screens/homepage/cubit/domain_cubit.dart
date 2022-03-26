@@ -20,10 +20,10 @@ class DomainCubit extends Cubit<DomainState> {
     emit(DomainFetched(data));
   }
 
-  addDomain(String domain) {
+  addDomain(String domain) async {
     emit(DomainInsert());
     try {
-      repo.addDomain(domain);
+      await repo.addDomain(domain);
       emit(DomainInsertSuccess());
     } on Exception catch (e) {
       log(e.toString());

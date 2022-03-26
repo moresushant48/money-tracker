@@ -8,12 +8,10 @@ class DomainModel {
   // DomainModel.fromSnapshot(DataSnapshot snapshot)
   //     : name = snapshot.value["name"];
 
-  // toJson() {
-  //   return {
-  //     "name": name,
-  //     "address": address,
-  //     "phone": phone,
-  //     "thumbnail": thumbnail,
-  //   };
-  // }
+  toJson() {
+    return {
+      "name": name,
+      "date": DateTime.now().toString(),
+    };
+  }
 }

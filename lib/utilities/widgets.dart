@@ -4,10 +4,12 @@ class UtilityWidgets {
   Widget textFormField(
     BuildContext context, {
     controller,
+    validators,
     String hintText = "",
   }) {
     return TextFormField(
       controller: controller,
+      validator: validators,
       decoration: InputDecoration(
           hintText: "Enter Domain Name",
           border:
@@ -25,7 +27,6 @@ class UtilityWidgets {
         borderRadius: BorderRadius.circular(42.0),
         onTap: () {
           onPressed();
-          print("sdfsd");
         },
         child: Container(
           margin: const EdgeInsets.all(4.0),

@@ -18,8 +18,8 @@ class DomainRepo {
     return domains;
   }
 
-  addDomain(String domain) {
-    db.ref("users/sushant/").child(domain).set("");
+  Future<void> addDomain(String domain) {
+    return db.ref("users/sushant/").child(domain).set("");
   }
 
   removeDomain(String domain) {

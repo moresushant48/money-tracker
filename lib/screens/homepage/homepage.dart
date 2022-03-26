@@ -4,7 +4,6 @@ import 'package:money_tracker/screens/homepage/cubit/domain_cubit.dart';
 import 'package:money_tracker/screens/homepage/widgets/domain_card.dart';
 import 'package:money_tracker/screens/homepage/widgets/domain_card_shimmer.dart';
 import 'package:money_tracker/screens/homepage/widgets/domain_modal.dart';
-import 'package:money_tracker/utilities/widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -61,7 +60,12 @@ class _HomePageState extends State<HomePage> {
                           ),
                           //
                           BlocConsumer<DomainCubit, DomainState>(
-                            listener: (context, state) {},
+                            listener: (context, state) {
+                              if (state is DomainInsertSuccess) {
+                                BlocProvider.of<DomainCubit>(context)
+                                    .fetchDomains();
+                              }
+                            },
                             builder: (context, state) {
                               if (state is DomainFetching) {
                                 // view shimmer when domains are being fetched
