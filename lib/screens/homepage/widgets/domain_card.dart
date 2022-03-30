@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_tracker/models/domain.dart';
+import 'package:money_tracker/screens/investments/domain_investments.dart';
 import '../../../utilities/utility_service.dart';
 
 class DomainCard extends StatelessWidget {
@@ -27,6 +28,10 @@ class DomainCard extends StatelessWidget {
           domain.name.toCapitalized(),
           style: TextStyle(fontSize: 18),
         ),
+        onTap: () {
+          Navigator.pushNamed(context, Investments.route,
+              arguments: domain.name);
+        },
       ),
     );
   }

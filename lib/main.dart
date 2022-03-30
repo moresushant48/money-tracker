@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_tracker/screens/investments/cubit/investment_cubit.dart';
 import 'package:money_tracker/screens/phone_auth/cubit/phone_auth_cubit.dart';
 import 'package:money_tracker/utilities/routes.dart';
 import 'package:money_tracker/screens/homepage/cubit/domain_cubit.dart';
@@ -27,6 +28,7 @@ class _MainState extends State<Main> {
         providers: [
           BlocProvider(create: (context) => DomainCubit()),
           BlocProvider(create: (context) => PhoneAuthCubit()),
+          BlocProvider(create: (context) => InvestmentCubit("")),
         ],
         child: MaterialApp(
           themeMode: ThemeMode.light,
